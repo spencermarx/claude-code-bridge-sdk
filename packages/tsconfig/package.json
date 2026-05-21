@@ -3,5 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "files": ["base.json"],
-  "main": "base.json"
+  "exports": {
+    "./base.json": "./base.json",
+    "./package.json": "./package.json"
+  }
 }
