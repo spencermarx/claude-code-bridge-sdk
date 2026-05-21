@@ -10,6 +10,14 @@ name: Release
 #                             version. Use this for the first release or
 #                             out-of-band patch ships where you don't want
 #                             to round-trip through a Version Packages PR.
+#
+# Auth model: npm Trusted Publishing (OIDC).
+# See https://docs.npmjs.com/trusted-publishers
+# No long-lived NPM_TOKEN. The package must be registered as a Trusted
+# Publisher target on npmjs.com first (owner: spencermarx, repo:
+# claude-code-bridge-sdk, workflow: release.yml). Provenance is enabled
+# by default once trusted publishing is in effect.
+
 on:
   push:
     branches: [main]
@@ -21,8 +29,8 @@ concurrency:
 
 permissions:
   contents: write
-  pull-requests: write
   id-token: write
+  pull-requests: write
 
 jobs:
   # Changesets-driven release (main branch only).
@@ -30,6 +38,10 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')
     name: Version or publish via Changesets
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
     steps:
       - uses: actions/checkout@v5
         with:
@@ -37,9 +49,11 @@ jobs:
       - uses: pnpm/action-setup@v5
       - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
+      - name: Upgrade npm to a trusted-publishing-capable version
+        run: npm install -g npm@latest
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm typecheck
@@ -53,34 +67,38 @@ jobs:
           title: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: 'true'
+          # No NPM_TOKEN — npm CLI exchanges the GitHub OIDC token for a
+          # short-lived publish credential via npm Trusted Publishing.
 
   # Direct publish triggered by a v*.*.* tag.
   tag-publish:
     if: startsWith(github.ref, 'refs/tags/v')
     name: Publish on tag
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
     steps:
       - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v5
       - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
+      - name: Upgrade npm to a trusted-publishing-capable version
+        run: npm install -g npm@latest
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
-      - name: Publish to npm
-        run: pnpm -F claude-code-bridge-sdk publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: 'true'
+      - name: Publish to npm (trusted publishing)
+        working-directory: packages/sdk
+        # Use `npm publish` directly so we depend on the npm CLI's
+        # trusted-publishing flow rather than the pnpm wrapper's, which
+        # tracks npm's OIDC support on its own release cadence.
+        run: npm publish --access public --provenance
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
