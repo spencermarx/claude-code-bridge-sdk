@@ -14,11 +14,9 @@ jobs:
     name: Lint, typecheck, unit tests, build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: '20'
           cache: 'pnpm'
@@ -28,18 +26,34 @@ jobs:
       - run: pnpm test
       - run: pnpm build
 
+  # End-to-end tests run only when the ANTHROPIC_API_KEY secret is present.
+  # Forked PRs and repos that haven't configured the secret will see this
+  # job skipped (not failed) so CI stays green by default.
+  e2e-check:
+    name: Check if e2e prerequisites are available
+    runs-on: ubuntu-latest
+    outputs:
+      has-key: ${{ steps.check.outputs.has-key }}
+    steps:
+      - id: check
+        env:
+          KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "$KEY" ]; then
+            echo "has-key=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has-key=false" >> "$GITHUB_OUTPUT"
+          fi
+
   e2e:
     name: End-to-end (real claude CLI)
     runs-on: ubuntu-latest
-    needs: test
-    # Skip on forked PRs without secrets — they cannot access ANTHROPIC_API_KEY.
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository || github.event_name == 'push' }}
+    needs: [test, e2e-check]
+    if: needs.e2e-check.outputs.has-key == 'true'
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: '20'
           cache: 'pnpm'

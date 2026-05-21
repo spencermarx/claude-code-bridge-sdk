@@ -1,8 +1,19 @@
 name: Release
 
+# Two trigger paths:
+#   1. push to main         — runs Changesets action. If there are pending
+#                             changesets it opens a 'Version Packages' PR;
+#                             if a prior 'Version Packages' PR just merged
+#                             (so package.jsons are bumped and changesets
+#                             are consumed) it publishes to npm.
+#   2. tag push v*.*.*      — direct publish of the current package.json
+#                             version. Use this for the first release or
+#                             out-of-band patch ships where you don't want
+#                             to round-trip through a Version Packages PR.
 on:
   push:
     branches: [main]
+    tags: ['v*.*.*']
 
 concurrency:
   group: release-${{ github.ref }}
@@ -14,17 +25,17 @@ permissions:
   id-token: write
 
 jobs:
-  release:
+  # Changesets-driven release (main branch only).
+  changesets:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')
     name: Version or publish via Changesets
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: '20'
           cache: 'pnpm'
@@ -45,3 +56,37 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: 'true'
+
+  # Direct publish triggered by a v*.*.* tag.
+  tag-publish:
+    if: startsWith(github.ref, 'refs/tags/v')
+    name: Publish on tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+      - name: Publish to npm
+        run: pnpm -F claude-code-bridge-sdk publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: 'true'
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --notes-file CHANGELOG.md \
+            --verify-tag

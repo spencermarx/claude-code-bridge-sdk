@@ -1,10 +1,12 @@
----
-'claude-code-bridge-sdk': patch
----
+# Changelog
+
+This file tracks releases of the `claude-code-bridge-sdk` package at `packages/sdk`. See [`packages/sdk/CHANGELOG.md`](./packages/sdk/CHANGELOG.md) for the canonical per-package log.
+
+## 0.0.1
 
 Initial release of `claude-code-bridge-sdk` — a thin TypeScript bridge SDK over `@anthropic-ai/claude-agent-sdk`.
 
-Highlights:
+### Highlights
 
 - `claude.run(opts)` — awaitable + iterable one-shot handle with `.sessionId`, `.text()`, `.result`, `.kill()`, `.interrupt()`.
 - `claude.session(opts)` — long-lived stateful agent with `.send()`, `.invoke()`, `.fork()`, `.commands()`, `.models()`, `.setModel()`, `.setPermissionMode()`, `.snapshot()`.
