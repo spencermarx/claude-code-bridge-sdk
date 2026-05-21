@@ -31,7 +31,26 @@ The upstream `@anthropic-ai/claude-agent-sdk` is a hard dependency and is instal
 npm install -g @anthropic-ai/claude-code
 ```
 
-> **Runtime is ESM-only.** The upstream `@anthropic-ai/claude-agent-sdk` ships as ESM (`"type": "module"`). Although this package emits a `.cjs` artifact for the bridge itself, the upstream resolves at runtime via the standard module loader — so `require('@aclarify/claude-code-sdk')` from a CJS file will fail with `ERR_REQUIRE_ESM`. Use ESM (`import`) or a dual-runtime bundler.
+### ESM-only
+
+This package is **ESM-only by design**. It only ships `dist/index.js` (ESM) and `dist/index.d.ts`; no CJS bundle is emitted. Upstream `@anthropic-ai/claude-agent-sdk` is itself ESM-only, so a CJS facade here would only mask the real failure mode (`ERR_REQUIRE_ESM` on first `require` of upstream).
+
+Use it from:
+
+- Node ≥ 18.17 with `"type": "module"` in your `package.json`, or
+- a `.mjs` file, or
+- TypeScript with `"module": "NodeNext"` / `"Bundler"`, or
+- any bundler (Vite, Webpack, Rollup, esbuild, tsdown, etc.).
+
+If you need to consume this from CJS, dynamically import:
+
+```js
+// in a CommonJS file
+async function main() {
+  const { claude } = await import('@aclarify/claude-code-sdk');
+  // …
+}
+```
 
 ## Quickstart
 

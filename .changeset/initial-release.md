@@ -13,3 +13,4 @@ Highlights:
 - First-class `onAskUser` handler for Claude Code's `AskUserQuestion` tool.
 - Re-exports upstream `Options`, `SDKMessage`, all hook types, MCP helpers (`createSdkMcpServer`, `tool`).
 - Typed `ClaudeError` hierarchy with stable string codes.
+- **ESM-only** by design (matches upstream `@anthropic-ai/claude-agent-sdk`). Use ESM, `.mjs`, TypeScript NodeNext/Bundler, or a bundler. CJS consumers can use dynamic `import('@aclarify/claude-code-sdk')`.
