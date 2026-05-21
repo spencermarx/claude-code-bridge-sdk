@@ -18,9 +18,7 @@ void (async () => {
   for await (const ev of p.events()) {
     if (ev.type === 'started') console.error(`[pool] started ${ev.agentId.slice(0, 8)}`);
     if (ev.type === 'ended') {
-      console.error(
-        `[pool] ended ${ev.agentId.slice(0, 8)} cost=$${ev.result.costUsd.toFixed(4)}`,
-      );
+      console.error(`[pool] ended ${ev.agentId.slice(0, 8)} cost=$${ev.result.costUsd.toFixed(4)}`);
     }
     if (ev.type === 'error') console.error(`[pool] error ${ev.agentId.slice(0, 8)}`, ev.error);
   }

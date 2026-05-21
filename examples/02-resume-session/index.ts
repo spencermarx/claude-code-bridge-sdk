@@ -9,7 +9,7 @@
 // In production you'd run step 1 and step 3 in genuinely separate processes.
 // For demo purposes we sequence them in one script.
 
-import { writeFile, readFile, unlink } from 'node:fs/promises';
+import { readFile, unlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 

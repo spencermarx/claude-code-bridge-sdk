@@ -18,7 +18,7 @@ await s.sessionId;
 
 console.error('--- commands ---');
 for (const c of await s.commands()) {
-  console.error(`  /${c.name}${c.argumentHint ? ' ' + c.argumentHint : ''}`);
+  console.error(`  /${c.name}${c.argumentHint ? ` ${c.argumentHint}` : ''}`);
 }
 
 console.error('\n--- models ---');

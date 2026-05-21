@@ -5,7 +5,7 @@
 // and returns the answer back to the agent. The agent's final response should
 // reflect the chosen answer.
 
-import { claude, type AskUserHandler } from 'claude-code-bridge-sdk';
+import { type AskUserHandler, claude } from 'claude-code-bridge-sdk';
 
 const onAskUser: AskUserHandler = async ({ questions }) => {
   const answers: Record<string, string> = {};
