@@ -1,6 +1,6 @@
 {
   "name": "@aclarify/claude-code-sdk",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Ergonomic TypeScript SDK for building apps on top of Claude Code. Sessions, pools, AskUserQuestion bridge, and on-disk session inspection over @anthropic-ai/claude-agent-sdk.",
   "keywords": ["claude", "claude-code", "anthropic", "agent", "sdk", "ai", "llm", "typescript"],
   "license": "MIT",

@@ -53,4 +53,4 @@ export type {
 // Re-export upstream MCP tool-authoring helpers verbatim.
 export { createSdkMcpServer, tool } from '@anthropic-ai/claude-agent-sdk';
 
-export const version = '0.1.0';
+export const version = '0.0.1';

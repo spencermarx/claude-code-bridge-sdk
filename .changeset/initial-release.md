@@ -1,5 +1,5 @@
 ---
-'@aclarify/claude-code-sdk': minor
+'@aclarify/claude-code-sdk': patch
 ---
 
 Initial release of `@aclarify/claude-code-sdk` — a thin TypeScript bridge SDK over `@anthropic-ai/claude-agent-sdk`.

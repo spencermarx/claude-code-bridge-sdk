@@ -182,7 +182,7 @@ Codes: `SESSION_NOT_FOUND`, `PERMISSION_DENIED`, `MAX_TURNS_EXCEEDED`, `BUDGET_E
 
 | `@aclarify/claude-code-sdk` | `@anthropic-ai/claude-agent-sdk` |
 |----------------------------|-----------------------------------|
-| 0.1.x                      | ^0.3.0                            |
+| 0.0.x                      | ^0.3.0                            |
 
 If the installed upstream is outside the tested range, the SDK logs a one-time `console.warn` on first use. It does not throw.
 

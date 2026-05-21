@@ -80,7 +80,7 @@ Before publishing or merging anything that touches `src/index.ts`:
 ```bash
 cd packages/sdk
 pnpm pack --pack-destination /tmp
-tar tzf /tmp/aclarify-claude-code-sdk-0.1.0.tgz
+tar tzf /tmp/aclarify-claude-code-sdk-0.0.1.tgz
 ```
 
 Expect exactly 7 entries: `package/dist/index.{js,js.map,d.ts,d.ts.map}`, `package/package.json`, `package/README.md`, `package/LICENSE`. Anything else (source maps for source files, test artifacts, configs) means `files` in `package.json` drifted.
