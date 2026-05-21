@@ -1,0 +1,15 @@
+name: 'Setup Claude Code CLI'
+description: 'Installs the `claude` CLI globally and verifies it is on PATH.'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Claude Code globally
+      shell: bash
+      run: |
+        npm install -g @anthropic-ai/claude-code
+    - name: Verify `claude` is on PATH
+      shell: bash
+      run: |
+        which claude
+        claude --version
