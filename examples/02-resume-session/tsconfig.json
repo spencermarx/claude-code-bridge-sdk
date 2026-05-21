@@ -1,0 +1,10 @@
+{
+  "extends": "@aclarify/tsconfig-claude-sdk/base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": ["index.ts"],
+  "exclude": ["node_modules"]
+}
