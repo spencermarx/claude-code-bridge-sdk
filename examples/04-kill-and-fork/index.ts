@@ -4,7 +4,7 @@
 //   B. Start a session, complete a turn, fork it into a branch, prove the
 //      branch has a different sessionId than the parent.
 
-import { claude } from '@aclarify/claude-code-sdk';
+import { claude } from 'claude-code-bridge-sdk';
 
 // --- A. Kill mid-turn -------------------------------------------------------
 

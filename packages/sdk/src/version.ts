@@ -19,7 +19,7 @@ export function checkUpstreamCompat(): void {
     if (!isInCompatRange(installed)) {
       // biome-ignore lint/suspicious/noConsole: intentional one-time drift notice
       console.warn(
-        `[@aclarify/claude-code-sdk] installed @anthropic-ai/claude-agent-sdk@${installed} is outside the tested range ${UPSTREAM_COMPAT}. The bridge may still work, but file an issue if you hit surprises.`,
+        `[claude-code-bridge-sdk] installed @anthropic-ai/claude-agent-sdk@${installed} is outside the tested range ${UPSTREAM_COMPAT}. The bridge may still work, but file an issue if you hit surprises.`,
       );
     }
     warned = true;

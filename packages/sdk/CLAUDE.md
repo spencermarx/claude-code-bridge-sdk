@@ -1,4 +1,4 @@
-# CLAUDE.md — `@aclarify/claude-code-sdk`
+# CLAUDE.md — `claude-code-bridge-sdk`
 
 Package-level guidance. The root `CLAUDE.md` covers monorepo conventions; this file covers what's distinct about working inside the SDK package itself.
 
@@ -63,12 +63,12 @@ These are real behaviors that surprise users. When you touch related code, doubl
 ## Build & test workflow
 
 ```bash
-pnpm -F @aclarify/claude-code-sdk build
-pnpm -F @aclarify/claude-code-sdk typecheck
-pnpm -F @aclarify/claude-code-sdk test          # unit + types only
-pnpm -F @aclarify/claude-code-sdk test:e2e      # requires claude CLI + ANTHROPIC_API_KEY
-pnpm -F @aclarify/claude-code-sdk lint
-pnpm -F @aclarify/claude-code-sdk e2e:doctor    # preflight: claude CLI + auth
+pnpm -F claude-code-bridge-sdk build
+pnpm -F claude-code-bridge-sdk typecheck
+pnpm -F claude-code-bridge-sdk test          # unit + types only
+pnpm -F claude-code-bridge-sdk test:e2e      # requires claude CLI + ANTHROPIC_API_KEY
+pnpm -F claude-code-bridge-sdk lint
+pnpm -F claude-code-bridge-sdk e2e:doctor    # preflight: claude CLI + auth
 ```
 
 `dist/` should contain exactly four files after a clean build: `index.js`, `index.js.map`, `index.d.ts`, `index.d.ts.map`. If you see `.cjs` or `.d.cts` files, something regressed ESM-only — `test/unit/esm-only.test.ts` should have caught it.
@@ -80,7 +80,7 @@ Before publishing or merging anything that touches `src/index.ts`:
 ```bash
 cd packages/sdk
 pnpm pack --pack-destination /tmp
-tar tzf /tmp/aclarify-claude-code-sdk-0.0.1.tgz
+tar tzf /tmp/claude-code-bridge-sdk-0.0.1.tgz
 ```
 
 Expect exactly 7 entries: `package/dist/index.{js,js.map,d.ts,d.ts.map}`, `package/package.json`, `package/README.md`, `package/LICENSE`. Anything else (source maps for source files, test artifacts, configs) means `files` in `package.json` drifted.

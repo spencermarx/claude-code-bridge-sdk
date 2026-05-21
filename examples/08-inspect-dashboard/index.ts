@@ -9,7 +9,7 @@ import { mkdtemp } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-import { claude } from '@aclarify/claude-code-sdk';
+import { claude } from 'claude-code-bridge-sdk';
 
 const cwd = await mkdtemp(join(tmpdir(), 'claude-bridge-dashboard-'));
 console.error(`[dashboard] cwd: ${cwd}`);

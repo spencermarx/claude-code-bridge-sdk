@@ -1,5 +1,5 @@
 {
-  "extends": "@aclarify/tsconfig-claude-sdk/base.json",
+  "extends": "claude-code-bridge-tsconfig/base.json",
   "compilerOptions": {
     "rootDir": ".",
     "noEmit": true,

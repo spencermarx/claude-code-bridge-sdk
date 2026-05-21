@@ -4,7 +4,7 @@
 // 2) List every model it can switch to.
 // 3) Invoke a project-local skill by name (`/demo`) — see ./skills/demo/SKILL.md.
 
-import { claude } from '@aclarify/claude-code-sdk';
+import { claude } from 'claude-code-bridge-sdk';
 
 const s = claude.session({
   model: 'claude-haiku-4-5',

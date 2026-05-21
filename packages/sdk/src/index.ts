@@ -1,4 +1,4 @@
-// @aclarify/claude-code-sdk
+// claude-code-bridge-sdk
 //
 // Public barrel. Everything exported from this file is part of the public API.
 

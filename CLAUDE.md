@@ -4,13 +4,13 @@ Workspace-level guidance for Claude Code instances working inside this repo. Nes
 
 ## What this repo is
 
-A pnpm + Turborepo monorepo that publishes `@aclarify/claude-code-sdk` — a thin TypeScript bridge over `@anthropic-ai/claude-agent-sdk`. The SDK adds: stateful `Session`, concurrent `Pool`, `AskUserQuestion` handler, slash-command discovery, and on-disk `inspect()`/`list()`. Nothing here reimplements what upstream already does — every leak of upstream complexity is a bug.
+A pnpm + Turborepo monorepo that publishes `claude-code-bridge-sdk` — a thin TypeScript bridge over `@anthropic-ai/claude-agent-sdk`. The SDK adds: stateful `Session`, concurrent `Pool`, `AskUserQuestion` handler, slash-command discovery, and on-disk `inspect()`/`list()`. Nothing here reimplements what upstream already does — every leak of upstream complexity is a bug.
 
 ## Layout
 
 ```
 packages/
-  sdk/         @aclarify/claude-code-sdk — the published package
+  sdk/         claude-code-bridge-sdk — the published package
   tsconfig/    Internal, unpublished shared TS preset
 examples/      Eight workspace consumers; each is its own package
 .changeset/    Pending semver bumps + changelog entries (do not edit by hand)
@@ -47,8 +47,8 @@ pnpm changeset            # add a changeset for the next release
 Workspace-scoped (preferred when working inside one package):
 
 ```bash
-pnpm -F @aclarify/claude-code-sdk <script>
-pnpm -F @aclarify/example-01-one-shot-streaming start
+pnpm -F claude-code-bridge-sdk <script>
+pnpm -F example-01-one-shot-streaming start
 ```
 
 ## Conventions

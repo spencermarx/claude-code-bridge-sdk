@@ -1,8 +1,8 @@
 ---
-'@aclarify/claude-code-sdk': patch
+'claude-code-bridge-sdk': patch
 ---
 
-Initial release of `@aclarify/claude-code-sdk` — a thin TypeScript bridge SDK over `@anthropic-ai/claude-agent-sdk`.
+Initial release of `claude-code-bridge-sdk` — a thin TypeScript bridge SDK over `@anthropic-ai/claude-agent-sdk`.
 
 Highlights:
 
@@ -13,4 +13,4 @@ Highlights:
 - First-class `onAskUser` handler for Claude Code's `AskUserQuestion` tool.
 - Re-exports upstream `Options`, `SDKMessage`, all hook types, MCP helpers (`createSdkMcpServer`, `tool`).
 - Typed `ClaudeError` hierarchy with stable string codes.
-- **ESM-only** by design (matches upstream `@anthropic-ai/claude-agent-sdk`). Use ESM, `.mjs`, TypeScript NodeNext/Bundler, or a bundler. CJS consumers can use dynamic `import('@aclarify/claude-code-sdk')`.
+- **ESM-only** by design (matches upstream `@anthropic-ai/claude-agent-sdk`). Use ESM, `.mjs`, TypeScript NodeNext/Bundler, or a bundler. CJS consumers can use dynamic `import('claude-code-bridge-sdk')`.

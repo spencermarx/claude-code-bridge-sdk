@@ -1,6 +1,6 @@
 // One-shot streaming demo.
 //
-// Verifies the four core promises of `@aclarify/claude-code-sdk`:
+// Verifies the four core promises of `claude-code-bridge-sdk`:
 //   1. iteration of messages works
 //   2. `.text()` streams text deltas as they arrive
 //   3. `.sessionId` resolves on system/init — before the first text token
@@ -9,9 +9,9 @@
 // Run with:
 //   ANTHROPIC_API_KEY=… node --experimental-strip-types index.ts
 // or with the workspace runner:
-//   pnpm -F @aclarify/example-01-one-shot-streaming start
+//   pnpm -F example-01-one-shot-streaming start
 
-import { claude } from '@aclarify/claude-code-sdk';
+import { claude } from 'claude-code-bridge-sdk';
 
 const prompt = process.argv.slice(2).join(' ') || 'Write a haiku about TypeScript.';
 

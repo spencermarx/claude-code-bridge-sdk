@@ -1,4 +1,4 @@
-# `@aclarify/claude-code-sdk`
+# `claude-code-bridge-sdk`
 
 A thin, ergonomic TypeScript SDK for building apps on top of [Claude Code](https://code.claude.com/).
 
@@ -20,9 +20,9 @@ Pre-release. Targets `@anthropic-ai/claude-agent-sdk` ^0.3.0.
 ## Install
 
 ```bash
-pnpm add @aclarify/claude-code-sdk
+pnpm add claude-code-bridge-sdk
 # or
-npm install @aclarify/claude-code-sdk
+npm install claude-code-bridge-sdk
 ```
 
 The upstream `@anthropic-ai/claude-agent-sdk` is a hard dependency and is installed automatically. The `claude` CLI itself is *not* bundled — install it globally for full functionality:
@@ -47,7 +47,7 @@ If you need to consume this from CJS, dynamically import:
 ```js
 // in a CommonJS file
 async function main() {
-  const { claude } = await import('@aclarify/claude-code-sdk');
+  const { claude } = await import('claude-code-bridge-sdk');
   // …
 }
 ```
@@ -55,7 +55,7 @@ async function main() {
 ## Quickstart
 
 ```ts
-import { claude } from '@aclarify/claude-code-sdk';
+import { claude } from 'claude-code-bridge-sdk';
 
 // One-shot, streaming
 const r = claude.run({ prompt: 'Write a haiku about TypeScript' });
@@ -66,7 +66,7 @@ console.log(final.sessionId, final.costUsd);
 
 ## Why this exists vs. raw `@anthropic-ai/claude-agent-sdk`
 
-| Need | Raw agent-sdk | `@aclarify/claude-code-sdk` |
+| Need | Raw agent-sdk | `claude-code-bridge-sdk` |
 |------|---------------|-----------------------------|
 | Stream + collect a final result on one handle | iterate manually, accumulate yourself | `await` AND `for await` on the same object |
 | Get `sessionId` before completion | walk messages, watch for `system/init` | `await r.sessionId` |
@@ -81,7 +81,7 @@ console.log(final.sessionId, final.costUsd);
 ## API surface
 
 ```ts
-import { claude, run, session, pool, inspect, list } from '@aclarify/claude-code-sdk';
+import { claude, run, session, pool, inspect, list } from 'claude-code-bridge-sdk';
 ```
 
 Everything is re-exported as named exports (tree-shake friendly) and on the `claude` namespace (discoverable).
@@ -166,7 +166,7 @@ You'll see a "denied tool call" entry in the transcript for each AskUserQuestion
 All errors thrown by the SDK extend `ClaudeError` and carry a stable string `code`:
 
 ```ts
-import { ClaudeError, KilledError, BudgetExceededError } from '@aclarify/claude-code-sdk';
+import { ClaudeError, KilledError, BudgetExceededError } from 'claude-code-bridge-sdk';
 
 try {
   await claude.run({ prompt: 'long task' });
@@ -180,7 +180,7 @@ Codes: `SESSION_NOT_FOUND`, `PERMISSION_DENIED`, `MAX_TURNS_EXCEEDED`, `BUDGET_E
 
 ## Compatibility
 
-| `@aclarify/claude-code-sdk` | `@anthropic-ai/claude-agent-sdk` |
+| `claude-code-bridge-sdk` | `@anthropic-ai/claude-agent-sdk` |
 |----------------------------|-----------------------------------|
 | 0.0.x                      | ^0.3.0                            |
 
@@ -201,7 +201,7 @@ Examples live in `./examples/`. Each is a workspace consumer of the SDK.
 
 ## Upstream attribution
 
-This package wraps [`@anthropic-ai/claude-agent-sdk`](https://www.npmjs.com/package/@anthropic-ai/claude-agent-sdk), which is © Anthropic PBC and governed by Anthropic's [Legal Agreements](https://code.claude.com/docs/en/legal-and-compliance). Using `@aclarify/claude-code-sdk` requires that you also accept those terms — the MIT license on this wrapper applies only to the wrapper's source code.
+This package wraps [`@anthropic-ai/claude-agent-sdk`](https://www.npmjs.com/package/@anthropic-ai/claude-agent-sdk), which is © Anthropic PBC and governed by Anthropic's [Legal Agreements](https://code.claude.com/docs/en/legal-and-compliance). Using `claude-code-bridge-sdk` requires that you also accept those terms — the MIT license on this wrapper applies only to the wrapper's source code.
 
 ## License
 

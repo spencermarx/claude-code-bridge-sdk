@@ -1,5 +1,5 @@
 {
-  "name": "@aclarify/example-08-inspect-dashboard",
+  "name": "example-08-inspect-dashboard",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -8,10 +8,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aclarify/claude-code-sdk": "workspace:*"
+    "claude-code-bridge-sdk": "workspace:*"
   },
   "devDependencies": {
-    "@aclarify/tsconfig-claude-sdk": "workspace:*",
+    "claude-code-bridge-tsconfig": "workspace:*",
     "@types/node": "^22.9.0",
     "typescript": "^5.6.3"
   }

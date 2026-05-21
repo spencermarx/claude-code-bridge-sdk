@@ -1,4 +1,4 @@
-# `@aclarify/claude-code-sdk`
+# `claude-code-bridge-sdk`
 
 Ergonomic TypeScript SDK for building apps on top of Claude Code.
 
@@ -7,15 +7,15 @@ See the [monorepo README](../../README.md) for the full overview, design rationa
 ## Install
 
 ```bash
-pnpm add @aclarify/claude-code-sdk
+pnpm add claude-code-bridge-sdk
 # or
-npm install @aclarify/claude-code-sdk
+npm install claude-code-bridge-sdk
 ```
 
 ## Usage
 
 ```ts
-import { claude } from '@aclarify/claude-code-sdk';
+import { claude } from 'claude-code-bridge-sdk';
 
 const r = claude.run({ prompt: 'Hello' });
 for await (const chunk of r.text()) process.stdout.write(chunk);

@@ -83,7 +83,7 @@ export function buildAskUserHook(
       // Embed the answer JSON in the denial reason. The model receives this
       // as the tool_result content and can reason about it directly.
       const payload = {
-        intercepted_by: 'aclarify/claude-code-sdk',
+        intercepted_by: 'claude-code-bridge-sdk',
         answers: normalizedAnswers,
         ...(response.annotations ? { annotations: response.annotations } : {}),
       };
@@ -102,7 +102,7 @@ export function buildAskUserHook(
           hookEventName: 'PreToolUse' as const,
           permissionDecision: 'deny' as const,
           permissionDecisionReason: JSON.stringify({
-            intercepted_by: 'aclarify/claude-code-sdk',
+            intercepted_by: 'claude-code-bridge-sdk',
             error: `Host onAskUser handler rejected: ${errMessage}`,
           }),
         },

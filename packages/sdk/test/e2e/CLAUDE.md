@@ -101,5 +101,5 @@ Don't add retries inside the test. Either fix the source of the flake or documen
 1. Create `<feature>.e2e.test.ts` (the `.e2e.test.ts` suffix matters — `vitest.e2e.config.ts` only picks up that pattern).
 2. Import `e2eBaseOpts`, `useTempCwd`, `withTimeout` from `./_helpers`.
 3. Write at most 1–3 tests per feature. E2E coverage is structural, not exhaustive — unit tests cover the matrix.
-4. Run it once locally before committing: `pnpm -F @aclarify/claude-code-sdk test:e2e`.
+4. Run it once locally before committing: `pnpm -F claude-code-bridge-sdk test:e2e`.
 5. Confirm the suite total runtime hasn't ballooned. Aim for <2 minutes total wall time.

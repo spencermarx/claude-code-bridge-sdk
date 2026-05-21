@@ -13,7 +13,7 @@ import { writeFile, readFile, unlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-import { claude } from '@aclarify/claude-code-sdk';
+import { claude } from 'claude-code-bridge-sdk';
 
 const stateFile = join(tmpdir(), `claude-bridge-example-02-${process.pid}.json`);
 

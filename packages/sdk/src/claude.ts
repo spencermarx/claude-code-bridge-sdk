@@ -5,7 +5,7 @@ import { session } from './session';
 
 /**
  * Convenience namespace bundling the SDK's top-level entrypoints. Tree-shaking
- * users can prefer named imports (`import { run } from '@aclarify/claude-code-sdk'`);
+ * users can prefer named imports (`import { run } from 'claude-code-bridge-sdk'`);
  * everyone else benefits from the discoverable, dotted form.
  */
 export const claude = {

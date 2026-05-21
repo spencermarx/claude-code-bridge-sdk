@@ -10,7 +10,7 @@ import { afterAll, beforeAll } from 'vitest';
 export function useTempCwd(): () => string {
   let dir: string | undefined;
   beforeAll(async () => {
-    dir = await mkdtemp(join(tmpdir(), 'aclarify-e2e-'));
+    dir = await mkdtemp(join(tmpdir(), 'ccb-e2e-'));
   });
   afterAll(async () => {
     if (dir) await rm(dir, { recursive: true, force: true });

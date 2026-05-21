@@ -4,7 +4,7 @@
 // session ids and per-agent cost, and demonstrates the unified pool event
 // stream + pool.kill('all').
 
-import { claude } from '@aclarify/claude-code-sdk';
+import { claude } from 'claude-code-bridge-sdk';
 
 const p = claude.pool({
   concurrency: 3,
